@@ -36,7 +36,7 @@ class IMS:
         self.icon_side = PhotoImage(file="images/side.png")                  
         lbl_menu = Label(LeftMenu,text="Menu",font=("times new roman",20,"bold"),bg="#009688").pack(side=TOP,fill=X)
         
-        btn_employee = Button(LeftMenu,text="Employee",image=self.icon_side,compound=LEFT,padx=5,anchor="w",font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
+        btn_employee = Button(LeftMenu,text="Employee",command=self.employee,image=self.icon_side,compound=LEFT,padx=5,anchor="w",font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
         btn_supplier = Button(LeftMenu,text="Supplier",image=self.icon_side,compound=LEFT,padx=5,anchor="w",font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
         btn_catagory = Button(LeftMenu,text="Catagory",image=self.icon_side,compound=LEFT,padx=5,anchor="w",font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
         btn_products = Button(LeftMenu,text="Products",image=self.icon_side,compound=LEFT,padx=5,anchor="w",font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
@@ -44,19 +44,19 @@ class IMS:
         btn_exit = Button(LeftMenu,text="Exit",image=self.icon_side,compound=LEFT,padx=5,anchor="w",font=("times new roman",20,"bold"),bg="white",bd=3,cursor="hand2").pack(side=TOP,fill=X)
        
         #<<<<<<<<<<CONTENT>>>>>>>>>>>> 
-        self.employeecount=Label(self.root,text="Total Employee\n[0]",bg="#33bbf9",bd=5,relief=RIDGE,
+        self.employee=Label(self.root,text="Total Employee\n[0]",bg="#33bbf9",bd=5,relief=RIDGE,
         fg="white",font=("times new roman",15,"bold")).place(x=250,y=120,height=150,width=300)
 
-        self.suppliercount=Label(self.root,text="Total Supplier\n[0]",bg="#ff5722",bd=5,relief=RIDGE,
+        self.supplier=Label(self.root,text="Total Supplier\n[0]",bg="#ff5722",bd=5,relief=RIDGE,
         fg="white",font=("times new roman",15,"bold")).place(x=600,y=120,height=150,width=300)
 
-        self.catagorycount=Label(self.root,text="Total Catagory\n[0]",bg="#009688",bd=5,relief=RIDGE,
+        self.catagory=Label(self.root,text="Total Catagory\n[0]",bg="#009688",bd=5,relief=RIDGE,
         fg="white",font=("times new roman",15,"bold")).place(x=950,y=120,height=150,width=300)
 
-        self.productcount=Label(self.root,text="Total Products\n[0]",bg="#607d8b",bd=5,relief=RIDGE,
+        self.product=Label(self.root,text="Total Products\n[0]",bg="#607d8b",bd=5,relief=RIDGE,
         fg="white",font=("times new roman",15,"bold")).place(x=250,y=300,height=150,width=300)
 
-        self.salescount=Label(self.root,text="Total Sales\n[0]",bg="#ffc107",bd=5,relief=RIDGE,
+        self.sales=Label(self.root,text="Total Sales\n[0]",bg="#ffc107",bd=5,relief=RIDGE,
         fg="white",font=("times new roman",15,"bold")).place(x=600,y=300,height=150,width=300)
 
         #<<<<<<<<<<FOOTER>>>>>>>>>>>>                    
