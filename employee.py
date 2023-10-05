@@ -153,3 +153,187 @@ class employeeClass():     #Creating employeeclass
         self.EmployeeTable.pack(fill=BOTH,expand=1)
         self.EmployeeTable.bind("<ButtonRelease-1>",self.get_data)    #buttonrelease is a type of event,when we release button after clicking then it will call fn 'get_data'
 
+        self.show()
+     #=============================================================================================
+        
+    def add(self):
+        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        cur=con.cursor()
+        try:
+            if self.var_emp_id.get()=="":
+                messagebox.showerror("Error","Employee ID must be required",parent=self.root)
+                #parent means as a messagebox of root
+            else:
+                cur.execute("Select * from Employee where eid=?",(self.var_emp_id.get(),))
+                row=cur.fetchone()   #to get result of querry
+                if row!=None:
+                    messagebox.showerror("Error","This Employee ID is already assigned,try different",parent=self.root)
+                else:
+                    cur.execute("Insert into Employee (eid,name,email,gender,contact,dob,doj,pass,utype,address,salary) values(?,?,?,?,?,?,?,?,?,?,?)",(
+                                               self.var_emp_id.get(),
+                                               self.var_name.get(),      
+                                               self.var_email.get(),
+                                               self.var_gender.get(),
+                                               self.var_contact.get(),
+                                               self.var_dob.get(),
+                                               self.var_doj.get(),
+                                               self.var_pass.get(),
+                                               self.var_utype.get(),
+                                               self.txt_address.get('1.0',END),
+                                               self.var_salary.get()
+        ))
+                    con.commit()
+                    messagebox.showinfo("Success","Employee Added Successfully",parent=self.root)
+                    self.show()           
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to :{str(ex)}",parent=self.root)    #str(ex) will catch error in try and will show it
+
+    def show(self):
+        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        cur=con.cursor()
+        try:
+            cur.execute("Select * from employee")
+            rows=cur.fetchall()  #to fetch all records
+            self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+            for row in rows:
+                self.EmployeeTable.insert('',END,values=row)   #here values are passed
+
+
+
+
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to :{str(ex)}",parent=self.root)    #str(ex) will catch error in try and will show it
+
+
+    def get_data(self,ev):    #ev is an event
+        f=self.EmployeeTable.focus()  #we want to focus record of tree view which we clicked
+        content=(self.EmployeeTable.item(f))     #to get the content upon which we focused,then we passed it in a tupple
+        row=content['values']       #filtering values,what values will be there in that particular row will come in 'row' variable
+       # print(row)    #row a type of list
+        self.var_emp_id.set(row[0]),     #this time we are using variables to set the data
+        self.var_name.set(row[1]),      
+        self.var_email.set(row[2]),
+        self.var_gender.set(row[3]),
+        self.var_contact.set(row[4]),
+        self.var_dob.set(row[5]),
+        self.var_doj.set(row[6]),
+        self.var_pass.set(row[7]),
+        self.var_utype.set(row[8]),
+        self.txt_address.delete('1.0',END),
+        self.txt_address.insert(END,row[9]),
+        self.var_salary.set(row[10])
+        
+    def update(self):
+        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        cur=con.cursor()
+        try:
+            if self.var_emp_id.get()=="":
+                messagebox.showerror("Error","Employee ID must be required",parent=self.root)
+                #parent means as a messagebox of root
+            else:
+                cur.execute("Select * from Employee where eid=?",(self.var_emp_id.get(),))
+                row=cur.fetchone()   #to get result of querry
+                if row==None:
+                    messagebox.showerror("Error","Invalid Employee ID",parent=self.root)
+                else:
+                    cur.execute("Update Employee set name=?,email=?,gender=?,contact=?,dob=?,doj=?,pass=?,utype=?,address=?,salary=? where eid=?",(
+                                               
+                                               self.var_name.get(),      
+                                               self.var_email.get(),
+                                               self.var_gender.get(),
+                                               self.var_contact.get(),
+                                               self.var_dob.get(),
+                                               self.var_doj.get(),
+                                               self.var_pass.get(),
+                                               self.var_utype.get(),
+                                               self.txt_address.get('1.0',END),
+                                               self.var_salary.get(),
+                                               self.var_emp_id.get(),
+
+        ))
+                    con.commit()
+                    messagebox.showinfo("Success","Employee Updated Successfully",parent=self.root)
+                    self.show()           
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to :{str(ex)}",parent=self.root)    #str(ex) will catch error in try and will show it
+    
+
+    def delete(self):
+        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        cur=con.cursor()
+        try:
+            if self.var_emp_id.get()=="":
+                messagebox.showerror("Error","Employee ID must be required",parent=self.root)
+                #parent means as a messagebox of root
+            else:
+                cur.execute("Select * from Employee where eid=?",(self.var_emp_id.get(),))
+                row=cur.fetchone()   #to get result of querry
+                if row==None:
+                    messagebox.showerror("Error","Invalid Employee ID",parent=self.root)
+
+
+                else:
+                    op=messagebox.askyesno("Conferm","Do you really want to delete?",parent=self.root)
+                    if op==True:
+                        cur.execute("delete from employee where eid=?",(self.var_emp_id.get(),))
+                        con.commit()
+                        messagebox.showinfo("Delete","Employee Deleted Successfully",parent=self.root)
+                        
+                        self.clear()
+
+
+
+
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to :{str(ex)}",parent=self.root)    #str(ex) will catch error in try and will show it
+    
+
+    def clear(self):
+        self.var_emp_id.set(""),     #this time we are using variables to set the data
+        self.var_name.set(""),      
+        self.var_email.set(""),
+        self.var_gender.set("Select"),
+        self.var_contact.set(""),
+        self.var_dob.set(""),
+        self.var_doj.set(""),
+        self.var_pass.set(""),
+        self.var_utype.set("Admin"),
+        self.txt_address.delete('1.0',END),
+        self.var_salary.set("")
+        self.var_searchtxt.set("")
+        self.var_searchby.set("Select")
+        self.show()
+    
+
+
+    def search(self):
+        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        cur=con.cursor()
+        try:
+            if self.var_searchby.get()=="Select":
+                messagebox.showerror("Error","Select search by option",parent=self.root)
+            elif self.var_searchtxt.get()=="":
+                messagebox.showerror("Error","Search input should be required",parent=self.root)
+            
+            else:
+                cur.execute("Select * from employee where "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
+                rows=cur.fetchall()  #to fetch all records
+                if len(rows)!=0:
+                    self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+                    for row in rows:
+                        self.EmployeeTable.insert('',END,values=row)   #here values are passed
+
+
+                else:
+                    messagebox.showerror("Error","No record found",parent=self.root)
+
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to :{str(ex)}",parent=self.root)    #str(ex) will catch error in try and will show it
+
+
+
+
+if __name__=="__main__":
+    root=Tk()
+    object=employeeClass(root)
+    root.mainloop()
