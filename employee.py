@@ -3,7 +3,7 @@ from PIL import Image,ImageTk
 from tkinter import ttk,messagebox    #importing library to use combobox and some other
 import sqlite3
 
-class employeeClass():     #Creating employeeclass
+class employeeClass:     #Creating employeeclass
     def __init__(self,root):
         self.root=root
         self.root.geometry("1000x500+220+130")
@@ -32,14 +32,13 @@ class employeeClass():     #Creating employeeclass
         
         #options in search frame
         #creating combobox in search frame
-        cmb_search=ttk.Combobox(self.root,textvariable=self.var_searchby,values=("Select","Email","Name","Contact"),state="readonly",justify=CENTER,
-        font=("goudy old style",15,"bold"))
+        cmb_search=ttk.Combobox(self.root,textvariable=self.var_searchby,values=("Select","Email","Name","Contact"),state="readonly",justify=CENTER,font=("goudy old style",15,"bold"))
         cmb_search.place(x=260,y=50,width=180)
         cmb_search.current(0)   #current value is of index 0 ,state=readonly so that we can't type
         
         #in single row if we want to enter our data then we go for 'Entry' otherwise for 'Text'
         txt_search=Entry(self.root,textvariable=self.var_searchtxt,font=("goudy old style",15),bg="lightyellow").place(x=450,y=50)
-        btn_search=Button(self.root,text="Search",command=self.search,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=670,y=50,width=150,height=30)
+        btn_search=Button(self.root,text="Search",command=self.search,font=("goudy old style",15),bg="#4caf50",fg="black",cursor="hand2").place(x=670,y=50,width=150,height=30)
         
         #title
         #creating label to show 'employee details'
@@ -56,8 +55,7 @@ class employeeClass():     #Creating employeeclass
         txt_contact=Entry(self.root,textvariable=self.var_contact,font=("goudy old style",15),bg="lightyellow")
         txt_contact.place(x=750,y=150,width=180)
         
-        cmb_gender=ttk.Combobox(self.root,textvariable=self.var_gender,values=("Select","Male","Female","Others"),state="readonly",justify=CENTER,
-        font=("goudy old style",15,"bold"))
+        cmb_gender=ttk.Combobox(self.root,textvariable=self.var_gender,values=("Select","Male","Female","Others"),state="readonly",justify=CENTER,font=("goudy old style",15,"bold"))
         cmb_gender.place(x=450,y=150,width=180)
         cmb_gender.current(0)
 
@@ -102,10 +100,10 @@ class employeeClass():     #Creating employeeclass
         txt_salary.place(x=600,y=270,width=180)
         
         #buttons
-        btn_add=Button(self.root,text="Save",command=self.add,font=("goudy old style",15),bg="#2196f3",fg="white",cursor="hand2").place(x=500,y=305,width=80,height=30)
-        btn_update=Button(self.root,text="Update",command=self.update,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=620,y=305,width=80,height=30)
-        btn_delete=Button(self.root,text="Delete",command=self.delete,font=("goudy old style",15),bg="#f44336",fg="white",cursor="hand2").place(x=740,y=305,width=80,height=30)
-        btn_clear=Button(self.root,text="Clear",command=self.clear,font=("goudy old style",15),bg="#607d8b",fg="white",cursor="hand2").place(x=860,y=305,width=80,height=30)
+        btn_add=Button(self.root,text="Save",command=self.add,font=("goudy old style",15),bg="#2196f3",fg="black",cursor="hand2").place(x=500,y=305,width=80,height=30)
+        btn_update=Button(self.root,text="Update",command=self.update,font=("goudy old style",15),bg="#4caf50",fg="black",cursor="hand2").place(x=620,y=305,width=80,height=30)
+        btn_delete=Button(self.root,text="Delete",command=self.delete,font=("goudy old style",15),bg="#f44336",fg="black",cursor="hand2").place(x=740,y=305,width=80,height=30)
+        btn_clear=Button(self.root,text="Clear",command=self.clear,font=("goudy old style",15),bg="#607d8b",fg="black",cursor="hand2").place(x=860,y=305,width=80,height=30)
 
 
         #employee details
@@ -157,7 +155,7 @@ class employeeClass():     #Creating employeeclass
      #=============================================================================================
         
     def add(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             if self.var_emp_id.get()=="":
@@ -189,7 +187,7 @@ class employeeClass():     #Creating employeeclass
             messagebox.showerror("Error",f"Error due to :{str(ex)}",parent=self.root)    #str(ex) will catch error in try and will show it
 
     def show(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             cur.execute("Select * from employee")
@@ -224,7 +222,7 @@ class employeeClass():     #Creating employeeclass
         self.var_salary.set(row[10])
         
     def update(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             if self.var_emp_id.get()=="":
@@ -259,7 +257,7 @@ class employeeClass():     #Creating employeeclass
     
 
     def delete(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             if self.var_emp_id.get()=="":
@@ -307,7 +305,7 @@ class employeeClass():     #Creating employeeclass
 
 
     def search(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             if self.var_searchby.get()=="Select":

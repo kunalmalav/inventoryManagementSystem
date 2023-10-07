@@ -30,7 +30,7 @@ class supplierClass():
         
 
         txt_search=Entry(self.root,textvariable=self.var_searchtxt,font=("goudy old style",15),bg="lightyellow").place(x=750,y=60,width=140)
-        btn_search=Button(self.root,text="Search",command=self.search,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=900,y=58,width=80,height=28)
+        btn_search=Button(self.root,text="Search",command=self.search,font=("goudy old style",15),bg="#4caf50",fg="black",cursor="hand2").place(x=900,y=58,width=80,height=28)
         
         #title
         title=Label(self.root,text="Supplier Details",font=("goudy old style",20,"bold"),bg="#0f4d7d",fg="white").place(x=50,y=10,width=900,height=30)
@@ -68,10 +68,10 @@ class supplierClass():
         self.txt_desc.place(x=160,y=180,width=430,height=105)
          #button
         
-        btn_add=Button(self.root,text="Save",command=self.add,font=("goudy old style",15),bg="#2196f3",fg="white",cursor="hand2").place(x=160,y=340,width=80,height=35)
-        btn_update=Button(self.root,text="Update",command=self.update,font=("goudy old style",15),bg="#4caf50",fg="white",cursor="hand2").place(x=260,y=340,width=80,height=35)
-        btn_delete=Button(self.root,text="Delete",command=self.delete,font=("goudy old style",15),bg="#f44336",fg="white",cursor="hand2").place(x=360,y=340,width=80,height=35)
-        btn_clear=Button(self.root,text="Clear",command=self.clear,font=("goudy old style",15),bg="#607d8b",fg="white",cursor="hand2").place(x=460,y=340,width=80,height=35)
+        btn_add=Button(self.root,text="Save",command=self.add,font=("goudy old style",15),bg="#2196f3",fg="black",cursor="hand2").place(x=160,y=340,width=80,height=35)
+        btn_update=Button(self.root,text="Update",command=self.update,font=("goudy old style",15),bg="#4caf50",fg="black",cursor="hand2").place(x=260,y=340,width=80,height=35)
+        btn_delete=Button(self.root,text="Delete",command=self.delete,font=("goudy old style",15),bg="#f44336",fg="black",cursor="hand2").place(x=360,y=340,width=80,height=35)
+        btn_clear=Button(self.root,text="Clear",command=self.clear,font=("goudy old style",15),bg="#607d8b",fg="black",cursor="hand2").place(x=460,y=340,width=80,height=35)
 
 
         #employee details
@@ -107,7 +107,7 @@ class supplierClass():
      #=============================================================================================
         
     def add(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             if self.var_sup_invoice.get()=="":
@@ -134,7 +134,7 @@ class supplierClass():
             messagebox.showerror("Error",f"Error due to :{str(ex)}",parent=self.root)    #str(ex) will catch error in try and will show it
 
     def show(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             cur.execute("Select * from supplier")
@@ -162,7 +162,7 @@ class supplierClass():
         self.txt_desc.insert(END,row[3])
         
     def update(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             if self.var_sup_invoice.get()=="":
@@ -190,7 +190,7 @@ class supplierClass():
     
 
     def delete(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
             if self.var_sup_invoice.get()=="":
@@ -232,7 +232,7 @@ class supplierClass():
 
 
     def search(self):
-        con=sqlite3.connect(database=r'python.db')   #connection for our database
+        con=sqlite3.connect(database=r'ims.db')   #connection for our database
         cur=con.cursor()
         try:
            
